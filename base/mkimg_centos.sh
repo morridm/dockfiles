@@ -1,5 +1,5 @@
 #!/bin/bash
-
+## from https://raw.github.com/blalor/docker-centos-base/master/build_centos.sh
 set -e
 
 ## requires running as root because filesystem package won't install otherwise,
