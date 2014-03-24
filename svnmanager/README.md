@@ -1,0 +1,1 @@
+svn + apache + mysql + svnmanager
