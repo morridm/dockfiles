@@ -11,7 +11,7 @@ RUN cd /tmp && curl -O http://apache.cs.utah.edu/httpd/httpd-2.4.9.tar.bz2 && ta
 RUN cd /tmp && curl -O http://apache.cs.utah.edu/subversion/subversion-1.8.8.tar.bz2 && tar xf subversion-1.8.8.tar.bz2 && cd subversion-1.8.8 && curl -O http://www.sqlite.org/2014/sqlite-amalgamation-3080401.zip && unzip sqlite-amalgamation-3080401.zip && mv sqlite-amalgamation{-3080401,} &&CC="gcc -std=gnu99" ./configure -q --with-apxs=/usr/local/apache2/bin/apxs --with-apr=/usr/local/apr --with-apr-util=/usr/local/apr --with-apache-libexecdir --enable-mod-activation && make -s -j && make install && cd .. && rm -fr $OLDPWD* && mkdir -p /usr/local/apache2/conf/conf.d/ && echo -e Include conf/conf.d/*.conf >> /usr/local/apache2/conf/httpd.conf
 
 #svnmanager 
-RUN cd /tmp && curl -L http://sourceforge.net/projects/svnmanager/files/svnmanager/1.10/svnmanager-1.10.tar.bz2/download -o svnmanager-1.10.tar.bz2 && pear install VersionControl_SVN-0.5.1 && tar xf svnmanager-1.10.tar.bz2 && 
+RUN cd /tmp && curl -L http://sourceforge.net/projects/svnmanager/files/svnmanager/1.10/svnmanager-1.10.tar.bz2/download -o svnmanager-1.10.tar.bz2 && pear install VersionControl_SVN-0.5.1 && tar xf svnmanager-1.10.tar.bz2 && mv svnmanager-1.10 /var/www/html/svnmanager && rm svnmanager-1.10.tar.bz2
 ADD svn.conf /usr/local/apache2/conf/conf.d/
 ADD config.php /var/www/html/svnmanager/
 ADD config_svn.sh /usr/bin/
