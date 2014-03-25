@@ -14,7 +14,7 @@ RUN cd /tmp && curl -O http://apache.cs.utah.edu/subversion/subversion-1.8.8.tar
 RUN cd /tmp && curl -L http://sourceforge.net/projects/svnmanager/files/svnmanager/1.10/svnmanager-1.10.tar.bz2/download -o svnmanager-1.10.tar.bz2 && pear install VersionControl_SVN-0.5.1 && tar xf svnmanager-1.10.tar.bz2 && 
 ADD svn.conf /usr/local/apache2/conf/conf.d/
 ADD config.php /var/www/html/svnmanager/
-
+ADD config_svn.sh /usr/bin/
 EXPOSE 80
 VOLUME /data/svn
 RUN /usr/sbin/groupadd subversion
@@ -24,3 +24,4 @@ RUN /usr/sbin/useradd -g www-data -s /sbin/nologin www-data
 RUN /usr/sbin/usermod -a -G subversion www-data
 RUN chown -R www-data:subversion /data/svn
 RUN echo -e [program:httpd]\\ncommand=/usr/bin/pidproxy /usr/local/apache2/logs/httpd.pid /usr/local/apache2/bin/apachectl -f /usr/local/apache2/conf/httpd.conf -DFOREGROUND\\nautostart=true\\nautorestart=true\\nstartsecs=30\\nstartretries=3 >> /etc/supervisord.conf
+CMD /bin/bash /usr/bin/config_svn.sh
